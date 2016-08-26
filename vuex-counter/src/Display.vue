@@ -5,7 +5,6 @@
 </template>
 
 <script>
-// import { getCount } from './getter';
 export default {
     vuex: {
         getters: {

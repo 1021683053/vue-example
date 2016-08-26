@@ -5,11 +5,11 @@
 </template>
 
 <script>
-import { incrementCounter } from './action'
+var actions = require("./action");
 export default {
     vuex: {
         actions: {
-            increment: incrementCounter
+            increment: actions.incrementCounter
         }
     }
 }

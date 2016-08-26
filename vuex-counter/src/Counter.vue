@@ -5,9 +5,9 @@
     </div>
 </template>
 <script>
-import Display from './Display.vue';
-import Increment from './Increment.vue';
-import store from './store';
+var Display = require('./Display.vue');
+var Increment = require('./Increment.vue');
+var store = require('./store');
 
 export default{
     components: {
