@@ -1,0 +1,62 @@
+<script src="http://cdn.bootcss.com/redux/3.5.2/redux.min.js"></script>
+<script type="text/javascript">
+    function add(todo){
+        return {type: 'NEW', todo: todo}
+    }
+    function del(todo){
+        return {type: 'DELETE', todo: todo}
+    }
+    var reducer = function(state, action){
+        state = state || { todos: [] };
+        switch ( action.type ) {
+            case 'NEW':
+                state.todos.push(action.todo)
+                return state;
+                break;
+            case 'DELETE':
+                var todo = action.todo;
+                state.todos.forEach(function(item , key){
+                    if( JSON.stringify(item) == JSON.stringify(todo) ){
+                        state.todos.splice(key, 1);
+                        return;
+                    }
+                });
+                return state;
+                break;
+            case "EMPTY":
+                state.todos = [];
+                return state;
+                break;
+            default:
+                return state;
+        }
+    };
+    var store = Redux.createStore(reducer);
+    console.log(store.getState());
+    store.dispatch(add(
+        {
+            name: "Liweifeng",
+            text: "我是李伟峰"
+        }
+    ));
+    console.log(store.getState());
+    store.dispatch(del(
+        {
+            name: "Liweifeng",
+            text: "我是李伟峰"
+        }
+    ));
+    store.dispatch(add(
+        {
+            name: "Liming",
+            text: "我是李明"
+        }
+    ));
+    store.dispatch(add(
+        {
+            name: "Wangpan",
+            text: "我是网盘"
+        }
+    ));
+    console.log(store.getState());
+</script>

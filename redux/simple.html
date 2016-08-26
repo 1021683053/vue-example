@@ -1,0 +1,30 @@
+<script src="http://cdn.bootcss.com/redux/3.5.2/redux.min.js"></script>
+<script type="text/javascript">
+    function inc(){
+        return {type: 'INCREMENT'}
+    }
+    function dec(){
+        return {type: 'DECREMENT'}
+    }
+    var reducer = function(state, action){
+        state = state || { counter: 0 };
+        switch ( action.type ) {
+            case 'INCREMENT':
+                return {counter: state.counter+1}
+                break;
+            case 'DECREMENT':
+                return {counter: state.counter-1}
+                break;
+            default:
+                return state;
+        }
+    };
+    var store = Redux.createStore(reducer);
+    console.log(store.getState());
+    store.dispatch(inc());
+    console.log(store.getState());
+    store.dispatch(inc());
+    console.log(store.getState());
+    store.dispatch(dec());
+    console.log(store.getState());
+</script>
