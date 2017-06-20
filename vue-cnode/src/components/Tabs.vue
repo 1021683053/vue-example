@@ -1,6 +1,8 @@
 <template>
     <ul class="ui-tiled">
-        <li v-for="tab of tabs" :class="active == tab.tag? 'active' :'' " @click="change(tab.tag)"> {{tab.zh}}</li>
+        <li v-for="tab of tabs" :class="active == tab.tag? 'active' :'' "> 
+        <router-link :to="{path:'/home/'+tab.tag}">{{tab.zh}}</router-link>
+    </li>
     </ul>
 </template>
 <script>
@@ -15,30 +17,48 @@ export default{
             active: state=> state.active
         })
     },
+    created(){
+        let tab = this.$route.params.tab;
+        if( !tab ){
+            this.$router.push({path: '/home/'+this.tabs[0].tag});
+            return;
+        }
+        // console.log(router)
+        this.change_tab(tab);
+    },
+    watch:{
+        '$route'($route, $routed){
+            if( $route.path == $routed.path ){
+                return;
+            } 
+            let tab = $route.params.tab;
+            this.change_tab(tab);
+        }
+    },
     mounted(){
         console.log( this.tabs );
     },
     methods: {
         ...mapMutations('tabs', {
             change_tab: 'change_tab'
-        }),
-        change(tag){
-            this.change_tab(tag);
-        }
+        })
     }
 }
 </script>
 <style lang="less" scoped>
 ul{
     border-bottom: 1px solid #19be6b;
-    li{
+    li a{
+        display: block;
+        width: 100%;
         height: 60px;
+        line-height: 60px;
         font-size: 18px;
         cursor: pointer;
         color: #333;
         font-weight: bold;
     }
-    li.active{
+    li.active a{
         color: #19be6b;
     }
 }

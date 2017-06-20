@@ -1,7 +1,7 @@
 <template>
     <div>
         <Tabs></Tabs>
-        <Items></Items>
+        <router-view></router-view>
     </div>
 </template>
 
@@ -15,8 +15,7 @@ export default {
         }
     },
     components:{
-        Tabs,
-        Items
+        Tabs
     }
 }
 </script>
