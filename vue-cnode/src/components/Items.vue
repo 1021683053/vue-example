@@ -34,7 +34,7 @@ export default{
         this.push_items({
             tab: this.active,
             page: 1,
-            limit: 20
+            limit: 50
         })
     },
     watch: {
@@ -42,7 +42,7 @@ export default{
             this.new_items({
                 tab: this.active,
                 page: 1,
-                limit: 20
+                limit: 50
             })
         }
     } 

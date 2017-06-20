@@ -10,6 +10,15 @@ export default {
     name: 'app',
     beforeCreate(){
         FastClick.attach(document.body);
+        var w = document.documentElement.clientWidth;
+        var basic = 401;
+        if( w<basic ){
+            var scale = w/basic;
+            var viewport = document.querySelector("meta[name=viewport]");
+            console.log(viewport);
+            var content = "width=400, initial-scale="+scale+",maximum-scale=1, minimum-scale=0.2, user-scalable=no";
+            viewport.setAttribute("content", content);
+        }
     }
 }
 </script>
@@ -21,7 +30,7 @@ body{
 }
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    max-width: 415px;
+    max-width: 750px;
     min-height: 100vh;
     margin: 0 auto;
     background: #FFF;
