@@ -1,14 +1,27 @@
 <template>
-    <ul class="items">
-        <li v-for="item of items">
-            <h3>{{item.title}}</h3>
-            <div class="content">
-                <img :src="item.author && item.author.avatar_url">
-            </div>
-        </li>
-    </ul>
+    <div>
+        <ul class="items">
+            <li v-for="item of items">
+                <h3>{{item.title}}</h3>
+                <div class="head">
+                    <img :src="item.author && item.author.avatar_url">
+                    <p class="name">
+                        {{item.author && item.author.loginname}}
+                    </p>
+                </div>
+                <div v-if="item.top || item.good" class="tag">
+                    <svg class="icon" aria-hidden="true">
+                        <use v-if="item.top" xlink:href="#icon-ding"></use>
+                        <use v-else-if="item.good" xlink:href="#icon-jing"></use>
+                    </svg>
+                </div>
+            </li>
+        </ul>
+        <Loading v-if="isLoading"></Loading>
+    </div>
 </template>
 <script>
+import Loading from '@/components/Loading';
 import {mapGetters, mapState, mapMutations, mapActions} from 'vuex';
 export default{
     data(){
@@ -18,7 +31,8 @@ export default{
                 page: 1,
                 limit: 10
             },
-            isEnd: false
+            isEnd: false,
+            isLoading: false
         }
     },
     computed: {
@@ -34,7 +48,11 @@ export default{
             push_items: 'push_items',
             new_items: 'new_items'
         }),
-        winroll(event){
+        roll(event){
+
+            if( this.isLoading ){
+                return;
+            }
 
             // 获取窗口可视范围的高度
             function getClientHeight(){  
@@ -70,16 +88,17 @@ export default{
             // 窗口可视范围的高度
             rheight=getScrollHeight(),
             bheight=rheight-theight-height;
-            console.log( bheight );
 
             // 判断是否为最后一页数据
             if( bheight <=100 && !this.isEnd ){
                 this.params.page++;
+                this.isLoading = true;
                 this.push_items(this.params)
                     .then((data)=>{
                         if( data.length<10 ){
                             this.isEnd = true;
                         }
+                        this.isLoading = false;
                     });
             }
 
@@ -88,17 +107,19 @@ export default{
     mounted(){
         this.params.tab = this.active;
         this.push_items(this.params);
-        window.addEventListener('scroll', this.winroll, false);
+        window.addEventListener('scroll', this.roll, false);
     },
     watch: {
         active(){
             this.params.tab = this.active;
             this.params.page = 1;
+            this.isEnd = false;
             this.new_items(this.params);
         }
-    } 
-
-
+    },
+    components:{
+        Loading
+    }
 }
 </script>
 <style lang="less" scoped>
@@ -106,21 +127,38 @@ export default{
     li{
         padding: 10px;
         border-bottom: 1px solid #e9eaec;
+        position: relative;
     }
     h3{
         font-size: 16px;
         font-weight: bold;
         overflow: hidden;
     }
-    .content{
+    .head{
         padding-top: 10px;
+        width: 60px;
     }
-    .content img{
+    .head p{
+        text-align: center;
+        font-size: 14px;
+        padding: 5px 0;
+    }
+    .head img{
         display: block;
         width: 60px;
         height: 60px;
         border-radius: 60px;
         box-shadow: 0 0 5px #ccc;
+    }
+    .tag{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+    .tag svg{
+        width: 40px;
+        height: 40px;
+        fill: #ff9900;
     }
 }
 </style>

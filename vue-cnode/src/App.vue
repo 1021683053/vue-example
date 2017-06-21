@@ -6,6 +6,7 @@
 
 <script>
 import FastClick from 'fastclick';
+import './lib/iconfont';
 export default {
     name: 'app',
     beforeCreate(){

@@ -1,6 +1,7 @@
 <template>
     <div>
         <Tabs></Tabs>
+        <!-- <Loading></Loading> -->
         <router-view></router-view>
     </div>
 </template>
@@ -16,6 +17,7 @@ export default {
     },
     components:{
         Tabs
+        // Loading
     }
 }
 </script>
