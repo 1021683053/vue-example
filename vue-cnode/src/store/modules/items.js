@@ -26,9 +26,10 @@ const mutations = {
 
 const actions = {
     [PUSH_ITEMS]({commit}, param){
-        get_items(param).then(function(res){
+        return get_items(param).then(function(res){
             commit(PUSH_ITEMS, res.data.data);
-        })
+            return res.data.data;
+        });
     },
     [NEW_ITEMS]({commit}, param){
         get_items(param).then(function(res){
