@@ -2,22 +2,28 @@
     <div>
         <ul class="items">
             <li v-for="item of items">
-                <h3>{{item.title}}</h3>
-                <div class="head">
-                    <img :src="item.author && item.author.avatar_url">
-                    <p class="name">
-                        {{item.author && item.author.loginname}}
-                    </p>
-                </div>
-                <div v-if="item.top || item.good" class="tag">
-                    <svg class="icon" aria-hidden="true">
-                        <use v-if="item.top" xlink:href="#icon-ding"></use>
-                        <use v-else-if="item.good" xlink:href="#icon-jing"></use>
-                    </svg>
-                </div>
+                <router-link :to="{path:'/topic/'+item.id}">
+                    <h3>{{item.title}}</h3>
+                    <div class="head">
+                        <img :src="item.author && item.author.avatar_url">
+                        <p class="name">
+                            {{item.author && item.author.loginname}}
+                        </p>
+                    </div>
+                    <div v-if="item.top || item.good" class="tag">
+                        <svg class="icon" aria-hidden="true">
+                            <use v-if="item.top" xlink:href="#icon-ding"></use>
+                            <use v-else-if="item.good" xlink:href="#icon-jing"></use>
+                        </svg>
+                    </div>
+                </router-link>
             </li>
         </ul>
-        <Loading v-if="isLoading"></Loading>
+        <div v-if="!isEnd" class="loading">
+            <keep-alive>
+                <Loading v-if="isLoading"></Loading>
+            </keep-alive>
+        </div>
     </div>
 </template>
 <script>
@@ -160,5 +166,8 @@ export default{
         height: 40px;
         fill: #ff9900;
     }
+}
+.loading{
+    height: 50px;
 }
 </style>

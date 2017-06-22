@@ -26,6 +26,7 @@ export default {
 
 <style lang="less">
 @import './less/index.less';
+@import './less/lib/github-markdown.less';
 body{
     background: #ccc;
 }

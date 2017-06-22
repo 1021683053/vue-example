@@ -1,8 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import Home from '@/pages/Home';
-// import Items from '@/components/Items';
-const Items = r => require.ensure([], () => r(require('@/components/Items')), 'Home')
+const Items = r => require.ensure([], () => r(require('@/components/Items')), 'Items')
+// const Topic = r => require.ensure([], () => r(require('@/components/Topic')), 'Topic')
+import Topic from '@/pages/Topic';
+
 // const Items = resolve => require(['@/components/Items'], resolve)
 
 Vue.use(Router)
@@ -24,6 +26,11 @@ export default new Router({
                     component: Items
                 }
             ]
+        },
+        {
+            path: '/topic/:id',
+            name: 'Topic',
+            component: Topic
         }
     ]
 })
