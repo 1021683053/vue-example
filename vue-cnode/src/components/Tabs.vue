@@ -27,8 +27,7 @@ export default{
         this.change_tab(tab);
     },
     watch:{
-        '$route'($route, $routed){
-
+        '$route'($route, $routed, tt){
             if( $route.path == $routed.path || !$route.params.tab ){
                 return;
             }
