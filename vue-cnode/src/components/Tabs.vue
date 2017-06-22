@@ -8,6 +8,7 @@
 <script>
 import {mapGetters, mapState, mapMutations} from 'vuex';
 export default{
+    name: 'tabs',
     data(){
         return {};
     },
@@ -23,19 +24,17 @@ export default{
             this.$router.push({path: '/home/'+this.tabs[0].tag});
             return;
         }
-        // console.log(router)
         this.change_tab(tab);
     },
     watch:{
         '$route'($route, $routed){
-            if( $route.path == $routed.path ){
+
+            if( $route.path == $routed.path || !$route.params.tab ){
                 return;
-            } 
+            }
             let tab = $route.params.tab;
             this.change_tab(tab);
         }
-    },
-    mounted(){
     },
     methods: {
         ...mapMutations('tabs', {

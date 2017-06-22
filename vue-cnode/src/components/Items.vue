@@ -30,6 +30,7 @@
 import Loading from '@/components/Loading';
 import {mapGetters, mapState, mapMutations, mapActions} from 'vuex';
 export default{
+    name: 'items',
     data(){
         return {
             params:{
@@ -110,13 +111,21 @@ export default{
 
         }
     },
-    mounted(){
+    created(){
         this.params.tab = this.active;
-        this.push_items(this.params);
+        this.new_items(this.params);
+    },
+    activated(){
         window.addEventListener('scroll', this.roll, false);
+    },
+    deactivated(){
+        window.removeEventListener('scroll', this.roll, false);
     },
     watch: {
         active(){
+            if( !this.active ){
+                return;
+            }
             this.params.tab = this.active;
             this.params.page = 1;
             this.isEnd = false;

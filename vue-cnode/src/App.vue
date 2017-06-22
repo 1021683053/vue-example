@@ -1,6 +1,8 @@
 <template>
     <div id="app">
-        <router-view></router-view>
+        <keep-alive include="home,tabs">
+            <router-view ></router-view>
+        </keep-alive>
     </div>
 </template>
 
@@ -29,6 +31,9 @@ export default {
 @import './less/lib/github-markdown.less';
 body{
     background: #ccc;
+}
+[v-cloak]{
+    display: none;
 }
 #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
