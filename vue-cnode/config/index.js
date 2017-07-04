@@ -31,6 +31,9 @@ module.exports = {
         '/api/v1': {
             changeOrigin: true,
             target: 'https://cnodejs.org',
+            headers: {
+                'Connection': 'keep-alive'
+            }
         }
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"

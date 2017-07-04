@@ -11,9 +11,11 @@ export default{
 }
 </script>
 <style lang="less" scoped>
+.loading{
+    padding: 10px 0;
+}
 .loading svg{
     display: block;
-    padding: 10px 0;
     margin: 0 auto;
     width: 30px;
     height: 30px;

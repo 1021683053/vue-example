@@ -19,15 +19,14 @@
                 </router-link>
             </li>
         </ul>
-        <div v-if="!isEnd" class="loading">
-            <keep-alive>
-                <Loading v-if="isLoading"></Loading>
-            </keep-alive>
+        <div v-show="true" class="loadingbox">
+            <Loading v-if="true"></Loading>
         </div>
     </div>
 </template>
 <script>
 import Loading from '@/components/Loading';
+import _ from 'lodash';
 import {mapGetters, mapState, mapMutations, mapActions} from 'vuex';
 export default{
     name: 'items',
@@ -116,10 +115,10 @@ export default{
         this.new_items(this.params);
     },
     activated(){
-        window.addEventListener('scroll', this.roll, false);
+        // window.addEventListener('scroll', _.debounce(this.roll, 50), false);
     },
     deactivated(){
-        window.removeEventListener('scroll', this.roll, false);
+        window.removeEventListener('scroll', _.debounce(this.roll, 50), false);
     },
     watch: {
         active(){
@@ -176,7 +175,7 @@ export default{
         fill: #ff9900;
     }
 }
-.loading{
+.loadingbox{
     height: 50px;
 }
 </style>
